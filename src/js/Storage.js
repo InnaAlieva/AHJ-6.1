@@ -18,36 +18,36 @@ export default class Storage {
 
   save(data) {
     try {
-    
       if (!Array.isArray(data)) {
         throw new Error('Данные должны быть массивом');
       }
 
-      
-      data.forEach(card => {
+      data.forEach((card, index) => {
         if (typeof card.text !== 'string') {
-          throw new Error('Поле text должно быть строкой');
+          throw new Error(`Карточка #${index}: поле text должно быть строкой`);
         }
-        
+
         const trimmedText = card.text.trim();
+
         if (trimmedText.length === 0) {
-          throw new Error('Текст карточки не может быть пустым');
+          throw new Error(`Карточка #${index}: текст не может быть пустым`);
         }
+
         if (trimmedText.length > 500) {
-          throw new Error('Текст карточки слишком длинный (максимум 500 символов)');
+          throw new Error(`Карточка #${index}: текст слишком длинный (максимум 500 символов)`);
         }
       });
 
- 
       const cleanedData = data.map(card => ({
         ...card,
-        text: card.text.trim()
+        text: card.text.trim(),
       }));
 
       const jsonString = JSON.stringify(cleanedData);
       const sizeKB = jsonString.length / 1024;
+
       if (sizeKB > 250) {
-        throw new Error(`Превышен лимит размера данных (${sizeKB.toFixed(2)} KB > 250 KB)`);
+        throw new Error(`Превышен лимит размера данных (${sizeKB.toFixed(2)} KB > 250 KB)`);
       }
 
       localStorage.setItem(this.key, jsonString);
