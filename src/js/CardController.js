@@ -184,7 +184,7 @@ export default class CardController {
 		e.preventDefault();
 		document.body.style.cursor = 'auto';
 
-		const closest = document.elementFromPoint(e.clientX, e.clientY).closest('.pinnes__card');
+		const closest = document.elementFromPoint(e.clientX, e.clientY).closest('.pinnes_card');
 
 		const trappingCell = e.target.closest('.cell');
 
