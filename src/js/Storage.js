@@ -44,7 +44,6 @@ export default class Storage {
         text: card.text.trim()
       }));
 
-
       const jsonString = JSON.stringify(cleanedData);
       const sizeKB = jsonString.length / 1024;
       if (sizeKB > 250) {
